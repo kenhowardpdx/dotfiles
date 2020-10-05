@@ -1,4 +1,7 @@
-export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
+export PROTOCPATH=$HOME/protoc
+export GOPATH=$HOME/Repos/go
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/.local/bin:/usr/local/bin:$PATH:$GOPATH/bin:$PROTOCPATH/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
@@ -7,6 +10,7 @@ export ZSH="/Users/$(whoami)/.oh-my-zsh"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+#ZSH_THEME="agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -69,9 +73,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -105,6 +106,4 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
-export GOPATH=$HOME/Repos/go
-export PATH="$GOPATH/bin:$PATH"
 alias pw="pwd | pbcopy && pwd"
