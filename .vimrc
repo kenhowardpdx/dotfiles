@@ -85,7 +85,7 @@ noremap <Leader>W :w !sudo tee % > /dev/null
 " noremap <Leader>j :SyntasticCheck<return>
 noremap <Leader>f :ALEFix<return>
 noremap <Leader>h :ALEHover<return>
-noremap <Leader>d :ALEGoToDefinitionInSplit<return>
+noremap <Leader>d :ALEGoToDefinition<return>
 noremap <Leader>r :ALEFindReferences<return>
 noremap <Leader>j :ALENext<return>
 noremap <Leader>k :ALEPrevious<return>j
@@ -106,7 +106,7 @@ autocmd FileType tsv setlocal noexpandtab
 let g:go_highlight_types = 0
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 0
-let g:go_auto_type_info = 1 " conflicts with Ale hover for issues
+let g:go_auto_type_info = 0 " conflicts with Ale hover for issues
 autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
 " autocmd BufRead,BufNewFile *.tmpl set filetype=html
 autocmd FileType gohtmltmpl set tabstop=2
