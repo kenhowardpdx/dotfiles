@@ -1,7 +1,7 @@
 export PROTOCPATH=$HOME/protoc
-export GOPATH=$HOME/Repos/go
+export GOPATH=$HOME/Repos
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:/usr/local/bin:$PATH:$GOPATH/bin:$PROTOCPATH/bin
+export PATH=$HOME/.local/bin:/usr/local/bin:$PATH:$GOPATH/go/bin:$PROTOCPATH/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/$(whoami)/.oh-my-zsh"
@@ -61,13 +61,13 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  aws
-  emoji
-  git
-  kubectl
-  themes
-)
+# plugins=(
+#  aws
+#  emoji
+#  git
+#  kubectl
+#  themes
+# )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,10 +100,19 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-zstyle ':completion:*' menu select
+# zstyle ':completion:*' menu select
 export DEFAULT_USER=`whoami`
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 alias pw="pwd | pbcopy && pwd"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# load aliases
+if [[ -r ~/.aliasrc ]]; then
+    . ~/.aliasrc
+  fi
