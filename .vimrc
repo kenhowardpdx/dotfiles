@@ -1,88 +1,58 @@
-syntax on
-call plug#begin('~/.vim/plugged')
-Plug 'martinda/Jenkinsfile-vim-syntax'
-Plug 'leafgarland/typescript-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'w0rp/ale'
-Plug 'nanotech/jellybeans.vim'
-Plug 'zivyangll/git-blame.vim'
-Plug 'fatih/vim-go'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+"______________/**** GENERAL ****\____________________
+syntax on                         " Enable syntax highlighting
+set backspace=indent,eol,start    " Make backspace work over multiple lines
+set colorcolumn=80                " Enables the vertical column position
+set cursorline                    " Show line below cursor
+set laststatus=2                  " Show the statusline
+set mouse=a                       " Enables mouse activity
+set nobackup                      " what it says
+set nocompatible                  " Make VIM work better rather than be VI compatible
+set noswapfile                    " what it says
+set number                        " Enable line numbers in gutter
+set numberwidth=5                 " Make the line number gutter wide
+set tabpagemax=50                 " Enables multiple files open at one time
+"______________/**** PLUGINS ****\____________________
+call plug#begin('~/.vim/plugged') " load plugins
+Plug 'w0rp/ale'                   " language server support
+Plug 'mattn/emmet-vim'            " html template scaffolding
+Plug 'zivyangll/git-blame.vim'    " git blame support
+Plug 'nanotech/jellybeans.vim'    " colorscheme
+Plug 'martinda/Jenkinsfile-vim-syntax' " what it says on the label
+Plug 'vim-airline/vim-airline'    " idk
+Plug 'vim-airline/vim-ariline-themes' " idk
+Plug 'fatih/vim-go'               " gofmt, gopls, delve
+Plug 'plasticboy/vim-markdown'    " markdown syntax highlighting
+Plug 'leafOfTree/vim-svelte-plugin' " svelte syntax highlighting
 call plug#end()
-"__________/ General Settings \_______________________________________________
-set nocompatible   " Make VIM work better rather than be VI compatible
-set backspace=indent,eol,start
-set number
-set numberwidth=5
-set cursorline
-set cursorcolumn
-set nobackup
-set noswapfile
-set laststatus=2
-" set textwidth=78
-" _________/ ALE Settings \__________________________________________________
-" Error and warning signs.
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-" let g:airline#extensions#ale#enabled = 1 " What does this do?
-let g:ale_go_langserver_executable = 'gopls'
-let g:ale_completion_enabled=1
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'go': ['gofmt', 'goimports'],
-\   'html': ['prettier'],
-\   'gohtmltmpl': ['prettier'],
-\   'javascript': ['eslint', 'prettier'],
-\   'json': ['jq'],
-\   'typescript': ['eslint', 'prettier'],
-\   'typescriptreact': ['eslint', 'prettier']
-\}
-let g:ale_linters = {
-\ 'go': ['gopls', 'golint', 'govet', 'gometalinter'],
-\ 'javascript': ['eslint'],
-\ 'html': []
-\}
-" Other stuff
-let g:go_code_completion_enabled = 0
-"__________/ Colors \_________________________________________________________
-" Italics handling
+"______________/**** COLORS  ****\____________________
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
-" Theme
 let g:jellybeans_use_term_italics = 1
 colorscheme jellybeans
-set colorcolumn=80
-set mouse=a
-set tabpagemax=50
-syntax on
-"__________/ Tab handling \___________________________________________________
-set tabstop=2      " Tab indentation levels every four columns
-set shiftwidth=2   " Indent/outdent by four columns
-set expandtab      " Convert all tabs that are typed into spaces
-set shiftround     " Always indent/outdent to nearest tabstop
-set smarttab       " Use shiftwidths at left margin, tabstop everywhere else
-"__________/ Set up smarter search options \__________________________________
-set incsearch " Lookahead as search pattern is specified
-set ignorecase " Ignore case in all searches...
-set smartcase " ...unless uppercase letters used
-set hlsearch " Highlight all matches
-highlight clear search
-highlight       search ctermfg=164 " Pinkish purple
-"__________/ Highlight Whitespace \___________________________________________
-set list listchars=tab:⇥␣,trail:␣
-"__________/ Fix smartindent stupidities \____________________________________
-set autoindent  " Retain indentation on next line
-set smartindent " Turn on autoindenting of blocks
+"______________/**** TABS   ****\_____________________
+set tabstop=2                     " Tab indention levels every four columns
+set shiftwidth=2                  " Indent/outdent by four columns
+set expandtab                     " Convert all tabs that ar typed into spaces
+set shiftround                    " Always indent/outdent to nearest tabstop
+set smarttab                      " Use shiftwidths at left margin, tabstop everywhere else
+"______________/**** SEARCH ****\_____________________
+set incsearch                     " Lookahead as search pattern is specified
+set ignorecase                    " Ignore case in all searches...
+set smartcase                     " ...unless uppercase letters used
+set hlsearch                      " Highlight all matches
+highlight clear search            " TBD
+highlight search ctermfg=164      " Pinkish purple
+"______________/**** FORMAT ****\_____________________
+set list listchars=tab:⇥␣,trail:␣ " Highlight whitespace
+set autoindent                    " Retain indentation on next line
+set smartindent                   " Turn on autoindenting of blocks
 set copyindent
-"__________/ Key Mappings \___________________________________________________
+"______________/*** MAPPINGS ***\_____________________
 ino jj <esc>
 noremap ; :
 noremap <space> :noh<return>
 let mapleader=','
 noremap <Leader>W :w !sudo tee % > /dev/null
-" noremap <Leader>j :SyntasticCheck<return>
 noremap <Leader>f :ALEFix<return>
 noremap <Leader>h :ALEHover<return>
 noremap <Leader>d :ALEGoToDefinition<return>
@@ -93,8 +63,24 @@ noremap <Leader>? :ALEDetail<return>
 noremap <Leader>t :ALEGoToTypeDefinitionInSplit<return>
 noremap <Leader>i :ALEInfo<return>
 noremap <Leader>b :<C-u>call gitblame#echo()<CR>
+" _____________/**** ALE     ****\____________________
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+let g:ale_completion_enabled=1     " Enable Ale Code Completion
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'html': ['prettier']
+\}
+let g:ale_linters = {
+\   'html': []
+\}
+let g:ale_linter_aliases = {}
+" _____________/**** FILETYPE **\____________________
 
-"__ STUFF TO ORGANIZE __
+" Emmet
+" enable emmet for html & css only
+let g:user_emmet_install_global = 0
+autocmd FileType gohtmltmpl,html,css EmmetInstall
 
 " Makefiles
 autocmd FileType make setlocal noexpandtab
@@ -103,34 +89,33 @@ autocmd BufRead,BufNewFile *.tsv set filetype=tsv
 autocmd FileType tsv setlocal noexpandtab
 
 " Go
+let g:ale_go_langserver_executable = 'gopls' " Use gopls language server
+let g:go_code_completion_enabled=0           " Disable Go Code Completion
+let g:ale_fixers['go'] = ['gofmt', 'goimports']
+let g:ale_fixers['gohtmltmpl'] = ['prettier']
+let g:ale_linters['go'] = ['gopls', 'golint', 'govet', 'gometalinter']
 let g:go_highlight_types = 0
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 0
 let g:go_auto_type_info = 0 " conflicts with Ale hover for issues
 autocmd BufRead,BufNewFile *.tmpl set filetype=gohtmltmpl
-" autocmd BufRead,BufNewFile *.tmpl set filetype=html
 autocmd FileType gohtmltmpl set tabstop=2
 autocmd FileType gohtmltmpl set shiftwidth=2
 autocmd FileType go setlocal noexpandtab
 autocmd FileType go setlocal list& listchars&
-" autocmd FileType go let g:go_addtags_transform = 'camelcase'
 autocmd FileType go noremap <leader><tab> :GoTest<return>
-" autocmd FileType go noremap <leader>gb :GoBuild<return>
-" autocmd FileType go noremap <leader>gin :GoInstall<return>
-" autocmd FileType go noremap <leader>gdb :GoDebugStart<return>
-" autocmd FileType go noremap <leader>grn :GoRename<return>
-autocmd FileType go noremap <leader>gc :GoCoverage<return>
 autocmd FileType go noremap <leader>gcc :GoCoverageClear<return>
-" autocmd FileType go noremap <leader>gr :GoRun<return>
-" autocmd FileType go noremap <leader>gl :GoLint<return>
-" autocmd FileType go noremap <leader>gd :GoDoc<return>
-" autocmd FileType go noremap <leader>gv :GoVet<return>
-" autocmd FileType go noremap <leader>ge :GoErrCheck<return>
-" autocmd FileType go noremap <leader>gml :GoMetaLinter<return>
-" autocmd FileType go noremap <leader>gfs :GoFillStruct<return>
-" autocmd FileType go noremap <leader>gie :GoIfErr<return>
-
-" au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-" au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-" au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical
 autocmd FileType gohtmltmpl let b:ale_javascript_prettier_options = '--parser=html'
+
+" JavaScript
+let g:ale_fixers['javascript'] = ['eslint', 'prettier']
+let g:ale_linters['javascript'] = ['eslint']
+
+" Svelte
+let g:ale_fixers['svelte'] = ['eslint', 'prettier']
+let g:ale_linters['svelte'] = ['eslint', 'svelteserver']
+let g:vim_svelte_plugin_use_typescript=1
+
+" TypeScript
+let g:ale_fixers['typescript'] = ['eslint', 'prettier']
+let g:ale_fixers['typescriptreact'] = ['eslint', 'prettier']
